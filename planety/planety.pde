@@ -25,7 +25,7 @@ void setup() {
 float viewX = 0, viewY = 0, scaleM = 10, time = 0.f;
 int R = 0, G = 0, B = 0, moveX = 0, moveY = 0, moveZ = 0, cameraX = 0, cameraY = 0, cameraZ = 0;
 boolean zoom = false, orbit = false, mouse = true, pressedX_right = false, pressedX_left = false, pressedY_down = false, pressedY_up = false, pressedZ_in = false, pressedZ_out = false, weapon = false,
-observer = true, first = true, pilot = false, landing = false, observer_available = true, rotate = false;
+observer = true, first = true, pilot = false, landing = false, observer_available = true;
 int k = 0, i = 0;
 void draw()
 {
@@ -107,17 +107,17 @@ void draw()
       moveZ -= 5;
     }
     if(moveX < 6 && moveX > -6 && moveY + 80 < 6 && moveY + 80 > -6 && moveZ + 1500 < 6 && moveZ + 1500 > -6 && time * 8 % PI <= 0.2 && time * 8 % PI >=- 0.2)
-    rotate = true;
+    landing = true;
   }
   
   //SpaceShip
   translate(0,300,1800);
   scale(0.01);
-  if(observer == true && landing == false && rotate == false){
+  if(observer == true && landing == false){
     first = true;
   camera(moveX,moveY - 100,(height/2 + moveZ) / tan(PI/6) + 1200, moveX,moveY-300,(height/2 + moveZ) / tan(PI/6), 0,1,0);}
-  //else if (landing == false){
   else{
+  //else if(landing == false){
     if(first == true){
       first = false;
       cameraX = moveX;
@@ -140,7 +140,7 @@ void draw()
   
   rotateY(PI);
   spotLight(255, 255, 255, 0, 100, -50, 0, 0, 10, 5, 0);
-  if(landing == false && rotate == false){
+  if(landing == false){
     pushMatrix();
     scale(0.5);
     shape(ship,0,0);
@@ -283,7 +283,7 @@ void draw()
   translate(-17, 7);
   scale(0.9);
   pushMatrix();
-  if(rotate == true && pilot == true){
+  if(landing == true && pilot == true){
     //popMatrix();
     //pushMatrix();
     //translate(0,300,1800);
@@ -306,6 +306,7 @@ void draw()
     rotateY(HALF_PI);
     scale(0.005);
     translate(-200,-400);
+    //camera(0,0,(height/2 + 0) / tan(PI/6), 0,0,(height/2 + 0) / tan(PI/6), 0,1,0);
   //  //camera(0,0 - 100,(height/2 + 0) / tan(PI/6) + 1200, 0,-300,(height/2 + 0) / tan(PI/6), 0,1,0);
     shape(ship,0,0);
   //  observer = true;
