@@ -25,7 +25,7 @@ void setup() {
 float viewX = 0, viewY = 0, scaleM = 10, time = 0.f;
 int R = 0, G = 0, B = 0, moveX = 0, moveY = 0, moveZ = 0, cameraX = 0, cameraY = 0, cameraZ = 0;
 boolean zoom = false, orbit = false, mouse = true, pressedX_right = false, pressedX_left = false, pressedY_down = false, pressedY_up = false, pressedZ_in = false, pressedZ_out = false, weapon = false,
-observer = true, first = true, pilot = false, landing = false, observer_available = true, land = false;
+observer = true, first = true, pilot = false, landing = false, observer_available = true;
 int k = 0, i = 0;
 void draw()
 {
@@ -88,42 +88,35 @@ void draw()
   scale(scaleM);
   
   if(landing == false && pilot == true){
-    //pushMatrix();
-    //translate(moveX, moveY, ((height/2 + (moveZ)) / tan(PI/6)));
-    if(moveX< 0){
-      //translate(10, 0 ,0);
+    if(moveX < 0){
       moveX += 5;
     }
     else if(moveX > 0){
-      //translate(-10, 0 ,0);
       moveX -= 5;
     }
-    if(moveY < -50){
-      //translate(0, 10 ,0);
+    if(moveY + 120 < 0 ){
       moveY += 5;
     }
-    else if(moveY > -50){
-      //translate(0, -10 ,0);
+    else if(moveY + 120 > 0){
       moveY -= 5;
     }
     if(moveZ + 1500 < 0){
-      //translate(0, 0 ,10);
       moveZ += 5;
     }
     else if(moveZ + 1500 > 0){
-      //translate(0, 0 ,-10);
       moveZ -= 5;
     }
-    if(moveX < 6 && moveX > -6 && moveY < 6 && moveY > -6 && moveZ + 1500 < 6 && moveZ + 1500 > -6)
+    if(moveX < 6 && moveX > -6 && moveY + 120 < 6 && moveY + 120 > -6 && moveZ + 1500 < 6 && moveZ + 1500 > -6)
     landing = true;
   }
   
   //SpaceShip
   translate(0,300,1800);
   scale(0.01);
-  if(observer == true){
+  if(observer == true && landing == false){
     first = true;
   camera(moveX,moveY - 100,(height/2 + moveZ) / tan(PI/6) + 1200, moveX,moveY-300,(height/2 + moveZ) / tan(PI/6), 0,1,0);}
+  //else if (landing == false){
   else{
     if(first == true){
       first = false;
@@ -296,10 +289,12 @@ void draw()
     rotateY(HALF_PI);
     scale(0.005);
     translate(-200,-400);
+    //camera(0,0 - 100,(height/2 + 0) / tan(PI/6) + 1200, 0,-300,(height/2 + 0) / tan(PI/6), 0,1,0);
     shape(ship,0,0);
     observer = true;
   }
   popMatrix();
+  //camera(0,0,(height/2 + 0) / tan(PI/6), 0,0,(height/2 + 0) / tan(PI/6), 0,1,0);
   shape(s,0,0);
   drawMoon4();
   time += .004f;
