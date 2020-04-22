@@ -116,8 +116,8 @@ void draw()
   if(observer == true && landing == false){
     first = true;
   camera(moveX,moveY - 100,(height/2 + moveZ) / tan(PI/6) + 1200, moveX,moveY-300,(height/2 + moveZ) / tan(PI/6), 0,1,0);}
-  else{
-  //else if(landing == false){
+  //else{
+  else if(landing == false){
     if(first == true){
       first = false;
       cameraX = moveX;
@@ -126,6 +126,8 @@ void draw()
     }
     camera(cameraX,cameraY - 100,(height/2 + cameraZ) / tan(PI/6) + 1200, cameraX,cameraY-300,(height/2 + cameraZ) / tan(PI/6), 0,1,0);
   }
+  else
+  camera(0, - 100,(height/2) / tan(PI/6) + 1200, 0,-300,(height/2) / tan(PI/6), 0,1,0);
   translate(moveX, moveY, ((height/2 + (moveZ)) / tan(PI/6)));
   //else{
   //  pushMatrix();
