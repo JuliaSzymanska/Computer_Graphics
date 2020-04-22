@@ -19,7 +19,8 @@ void setup() {
 // Naciśnięcie klawisza 'M' zmienia sposób sterowania z myszy na klawiaturę
 //Gdzie odpowiednio klawisze D/A, W/S, E/Q dla ruchu prawo/lewo, góra/dół, przód/tył
 //Klawisze +/= dodają i odejmują orbity
-//Klawisz O przełącza w tryb sterowania statkiem przy nieruchomym obserwatorze
+//Klawisz O włącza/wyłącza tryb sterowania statkiem przy nieruchomym obserwatorze
+//Klawisz P włącza/wyłącza tryb autopilota
 
 
 float viewX = 0, viewY = 0, scaleM = 10, time = 0.f;
@@ -306,15 +307,19 @@ void draw()
     rotateZ(-HALF_PI/2);
     rotateX(HALF_PI);
     rotateY(HALF_PI);
+    //camera(0, - 1,(height/2) / tan(PI/6) + 12, 0,-3,(height/2) / tan(PI/6), 0,1,0);
     scale(0.005);
     translate(-200,-400);
+    //camera(-15.3,4.5,(height/2 + 0) / tan(PI/6), -15.3,4.5,(height/2 + 0) / tan(PI/6), 0,1,0);
+    
     //camera(0,0,(height/2 + 0) / tan(PI/6), 0,0,(height/2 + 0) / tan(PI/6), 0,1,0);
   //  //camera(0,0 - 100,(height/2 + 0) / tan(PI/6) + 1200, 0,-300,(height/2 + 0) / tan(PI/6), 0,1,0);
+   
     shape(ship,0,0);
   //  observer = true;
   }
   popMatrix();
-  //camera(0,0,(height/2 + 0) / tan(PI/6), 0,0,(height/2 + 0) / tan(PI/6), 0,1,0);
+  //camera(0, - 100,(height/2) / tan(PI/6) + 1200, 0,-300,(height/2) / tan(PI/6), 0,1,0);
   shape(s,0,0);
   drawMoon4();
   time += .004f;
