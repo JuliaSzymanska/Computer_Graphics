@@ -25,7 +25,7 @@ void setup() {
 float viewX = 0, viewY = 0, scaleM = 10, time = 0.f;
 int R = 0, G = 0, B = 0, moveX = 0, moveY = 0, moveZ = 0, cameraX = 0, cameraY = 0, cameraZ = 0;
 boolean zoom = false, orbit = false, mouse = true, pressedX_right = false, pressedX_left = false, pressedY_down = false, pressedY_up = false, pressedZ_in = false, pressedZ_out = false, weapon = false,
-observer = true, first = true, pilot = false, landing = false, observer_available = true;
+observer = true, first = true, pilot = false, landing = false, observer_available = true, rotate = false;
 int k = 0, i = 0;
 void draw()
 {
@@ -94,10 +94,10 @@ void draw()
     else if(moveX > 0){
       moveX -= 5;
     }
-    if(moveY + 120 < 0 ){
+    if(moveY + 80 < 0 ){
       moveY += 5;
     }
-    else if(moveY + 120 > 0){
+    else if(moveY + 80 > 0){
       moveY -= 5;
     }
     if(moveZ + 1500 < 0){
@@ -106,14 +106,14 @@ void draw()
     else if(moveZ + 1500 > 0){
       moveZ -= 5;
     }
-    if(moveX < 6 && moveX > -6 && moveY + 120 < 6 && moveY + 120 > -6 && moveZ + 1500 < 6 && moveZ + 1500 > -6)
-    landing = true;
+    if(moveX < 6 && moveX > -6 && moveY + 80 < 6 && moveY + 80 > -6 && moveZ + 1500 < 6 && moveZ + 1500 > -6 && time * 8 % PI <= 0.2 && time * 8 % PI >=- 0.2)
+    rotate = true;
   }
   
   //SpaceShip
   translate(0,300,1800);
   scale(0.01);
-  if(observer == true && landing == false){
+  if(observer == true && landing == false && rotate == false){
     first = true;
   camera(moveX,moveY - 100,(height/2 + moveZ) / tan(PI/6) + 1200, moveX,moveY-300,(height/2 + moveZ) / tan(PI/6), 0,1,0);}
   //else if (landing == false){
@@ -138,10 +138,9 @@ void draw()
   //  popMatrix();  
   //}
   
-  line(30, 20, 20, 2000, 2000, 2000);
   rotateY(PI);
   spotLight(255, 255, 255, 0, 100, -50, 0, 0, 10, 5, 0);
-  if(landing == false){
+  if(landing == false && rotate == false){
     pushMatrix();
     scale(0.5);
     shape(ship,0,0);
@@ -233,6 +232,8 @@ void draw()
   shape(ca,0,0);
   drawMoon1();
   
+  
+  
   //2. planet
   popMatrix();
   pushMatrix();
@@ -282,16 +283,32 @@ void draw()
   translate(-17, 7);
   scale(0.9);
   pushMatrix();
-  if(pilot == true && landing == true){
+  if(rotate == true && pilot == true){
+    //popMatrix();
+    //pushMatrix();
+    //translate(0,300,1800);
+    //scale(0.01);
+    //translate(moveX, moveY + 100, ((height/2 + (moveZ)) / tan(PI/6)));
+    ////rotate(PI);
+    //rotateY(-HALF_PI*0.5);
+    //rotateX(-HALF_PI*0.91);
+    //camera(moveX,moveY - 100,(height/2 + moveZ - 1000) / tan(PI/6) + 1200, moveX,moveY-300,(height/2 + moveZ) / tan(PI/6), 0,1,0);
+    //rotate(8*time);
+  //  scale(0.01);
+  //  shape(ship,0,0);
+  //  fill(38,255,241);
+  //  sphere(50);
+  //}
+  //if(pilot == true && landing == true){
     rotateZ(PI);
     rotateZ(-HALF_PI/2);
     rotateX(HALF_PI);
     rotateY(HALF_PI);
     scale(0.005);
     translate(-200,-400);
-    //camera(0,0 - 100,(height/2 + 0) / tan(PI/6) + 1200, 0,-300,(height/2 + 0) / tan(PI/6), 0,1,0);
+  //  //camera(0,0 - 100,(height/2 + 0) / tan(PI/6) + 1200, 0,-300,(height/2 + 0) / tan(PI/6), 0,1,0);
     shape(ship,0,0);
-    observer = true;
+  //  observer = true;
   }
   popMatrix();
   //camera(0,0,(height/2 + 0) / tan(PI/6), 0,0,(height/2 + 0) / tan(PI/6), 0,1,0);
@@ -450,7 +467,7 @@ void keyPressed(){
  if(key != CODED && keyCode == ' '){
    weapon = true;
  }
- if(key != CODED && keyCode == 'O'){
+ if(key != CODED && keyCode == 'O' && pilot == false){
    observer = !observer;
  }
  if(key != CODED && keyCode == 'P'){
