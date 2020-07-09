@@ -2,8 +2,7 @@ PShape s,c, ca, ca1, ship;
 PImage bg, beg;
 
 void setup() {
-  size(1920, 1080, P3D);
-  //fullScreen();
+  size(1600, 900, P3D);
   noStroke();
   s = loadShape("teapot.obj");  
   c = loadShape("cube.obj"); 
@@ -12,7 +11,6 @@ void setup() {
   ship = loadShape("SpaceShip.obj");
   bg = loadImage("background.jpg");
   image(bg,0,0);
-  bg.resize(1920, 1080);
   
 }
 
